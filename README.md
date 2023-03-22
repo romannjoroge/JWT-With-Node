@@ -18,3 +18,19 @@ router.post('/signup', (req, res) => {
     res.send("POST Request Recieved")
 })
 ```
+
+## Email and Password Validation
+Simple validation can be carried out using the *express-validator* package. It gives you middleware functions that you can add to your routes to perform validation. For example, to check if password is at least 8 characters long and that email is written nicely:
+```javascript
+import {body, validateResult} from 'express-validator'
+/// Setting up router
+router.post('/signup',
+            // Check if req.body.email is a valid email and return error message if not
+            body('email', 'Error Message').isEmail(),
+            // Check if req.body.password has a minimum length of 8
+            body('password', 'Password Should Be Greater Than 8 Characters').isLength({min:8}),
+            (req, res) => {
+                // Do stuff in route body
+            }
+);
+```
