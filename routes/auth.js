@@ -1,6 +1,6 @@
 import express from 'express';
 import { check, validationResult } from 'express-validator';
-import users from '../db.js'
+import {users} from '../db.js'
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
 

@@ -96,3 +96,23 @@ bcrypt.compare(plain_text_password, hashed_password).then(data => {
 
 ## Send JWT Token
 Send token in the same way done for sign up route
+
+# Authorization Flow
+This checks if you are allowed to access resources.
+If you want anybody to be able to acces a resource then you don't need to do any checks i.e just send data
+If you want somebody to have logged in you check if they have the token in their request header. To do this we can use middleware functions.
+![Protected Route Authorization Flow](ProtectedRouteActivityDiagram.drawio.png)
+
+## Extract Token From Header
+When the request is received from the client you extract the cookie. The token is stored in the header in a key of the programmers choosing but it is often something similar to x-auth-token or bearer-token
+```javascript
+const token = req.headers('x-auth-token');
+
+// Returns an error if token does not exist
+if(!token) {
+    return res.status(400).json({message:"Token Does Not Exist"});
+}
+```
+
+## Verify Token
+Verify if the token is valid. This can be done using the *verify* method of jsonwebtokens package.
