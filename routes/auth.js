@@ -1,5 +1,6 @@
 import express from 'express';
 import { check, validationResult } from 'express-validator';
+import users from '../db.js'
 
 const router = express.Router();
 
@@ -14,8 +15,26 @@ router.post('/signup',
         return res.status(404).json({erros: errors.array()});
     }
     const {username, password, email} = req.body;
-    console.log(username, password ,email);
-    res.send("POST Request Reached");
+    
+    // Check if user already exists
+    let user = users.find((user) => {
+        return user.username === username;
+    });
+
+    if(user) {
+        return res.status(404).json({
+            errors: [
+                {
+                    "value": username,
+                    "msg": "User Already Exists",
+                    "param": "username",
+                    "location": "body"
+                }
+            ]
+        })
+    }
+
+    res.send("User Created");
 });
 
 router.get('/', (req, res) => {

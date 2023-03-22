@@ -34,3 +34,6 @@ router.post('/signup',
             }
 );
 ```
+
+## Check if user exists
+You make a request to the database to see if the user already exists. If the user exists an error is thrown. It's good practice to make the error thrown consistent to the errors thrown by express-validator.
