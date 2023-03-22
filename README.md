@@ -20,7 +20,7 @@ router.post('/signup', (req, res) => {
 ```
 
 ## Email and Password Validation
-Simple validation can be carried out using the ===express-validator== package. It gives you middleware functions that you can add to your routes to perform validation. For example, to check if password is at least 8 characters long and that email is written nicely:
+Simple validation can be carried out using the *express-validator* package. It gives you middleware functions that you can add to your routes to perform validation. For example, to check if password is at least 8 characters long and that email is written nicely:
 ```javascript
 import {body, validateResult} from 'express-validator'
 /// Setting up router
@@ -46,7 +46,7 @@ There are multiple ways to store passwords in a database:
 4. **Use a one way hash**. You cannot get the plain text password from the stored hash
 5. **Add salt to password and perform one way hash**. Prepend a postpend a random sequence of strings to the password before hashing it and storing in the system.
 
-To use *Method 5* we use a package called ==bcrypt==. bcrypt allows you to add salt to a password and to hash it.
+To use *Method 5* we use a package called ***bcrypt***. bcrypt allows you to add salt to a password and to hash it.
 ```javascript
 import bcrypt from 'bcrypt'
 bcrypt.hash(password, salt) // salt is the number of random letters to add to password before hashing. Recommended value is 10
