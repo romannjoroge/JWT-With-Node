@@ -9,4 +9,11 @@ This is a repo that I use to store the code I use while learning about implement
 The following activities take place at sign up route: 
 ![Sign Up Activity Diagram](signupactivitydiagram.drawio.png)
 
-
+## Getting Details From Client
+To get information from the client we can extract them from the body of the request.
+`javascript
+router.post('/signup', (req, res) => {
+    const {username, email, password} = req.body;
+    res.send("POST Request Recieved")
+})
+`
