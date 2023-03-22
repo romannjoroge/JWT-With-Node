@@ -1,0 +1,24 @@
+{
+  "name": "jwt-with-node",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "This is a repo that I use to store the code I use while learning about implementing jwt in node. The goal of this repo is to store code for implementing authorization, authentication and hashing in Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romannjoroge/JWT-With-Node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romannjoroge/JWT-With-Node/issues"
+  },
+  "homepage": "https://github.com/romannjoroge/JWT-With-Node#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
