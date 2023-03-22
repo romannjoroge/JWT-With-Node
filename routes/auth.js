@@ -1,6 +1,7 @@
 import express from 'express';
 import { check, validationResult } from 'express-validator';
 import users from '../db.js'
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
@@ -33,6 +34,22 @@ router.post('/signup',
             ]
         })
     }
+
+    bcrypt.hash(password, 10).then(data => {
+        // Store New User
+        console.log(data);
+        users.push({
+            username,
+            email,
+            password: data
+        });
+    }).catch(err => {
+        console.log(err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+    })
+
 
     res.send("User Created");
 });

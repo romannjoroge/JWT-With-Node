@@ -37,3 +37,20 @@ router.post('/signup',
 
 ## Check if user exists
 You make a request to the database to see if the user already exists. If the user exists an error is thrown. It's good practice to make the error thrown consistent to the errors thrown by express-validator.
+
+## Password Hashing
+There are multiple ways to store passwords in a database:
+1. **Store the password as plain text**. The issue with this is that if anyone get's access to your database they are able to see all the passwords used by your users.
+2. **Encrypt the stored password with a key**. This is better than the previous method but if a hacker were to get the key used to encrypt the system they would basically have access to all passwords in the system
+3. **Use a function to hash password**. This is an improvement. The function will allow you to hash the password and to take the hashed password and convert it to plain text. This can be bruteforced though where a hacker can hash a known password and check if the password is in the database.
+4. **Use a one way hash**. You cannot get the plain text password from the stored hash
+5. **Add salt to password and perform one way hash**. Prepend a postpend a random sequence of strings to the password before hashing it and storing in the system.
+
+To use *Method 5* we use a package called ***bcrypt***. bcrypt allows you to add salt to a password and to hash it.
+```javascript
+import bcrypt from 'bcrypt'
+bcrypt.hash(password, salt) // salt is the number of random letters to add to password before hashing. Recommended value is 10
+```
+
+## Storing Details
+The hashed password, and the rest of the details are stored in the database
