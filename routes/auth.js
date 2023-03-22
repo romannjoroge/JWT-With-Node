@@ -2,6 +2,7 @@ import express from 'express';
 import { check, validationResult } from 'express-validator';
 import users from '../db.js'
 import bcrypt from 'bcrypt';
+import JWT from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -50,8 +51,10 @@ router.post('/signup',
         })
     })
 
+    // Create and send JWT
+    let token = JWT.sign({email}, 'thisismysecretdonttellanyone', {expiresIn:3600});
 
-    res.send("User Created");
+    return res.status(200).json({token});
 });
 
 router.get('/', (req, res) => {

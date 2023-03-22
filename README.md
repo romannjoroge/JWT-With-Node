@@ -57,3 +57,16 @@ The hashed password, and the rest of the details are stored in the database
 
 ## Sending The JWT
 The JWT is the only way for our server to know that the client is who they say they are. It allows the client to log in once and while the token hasn't expired continue to use resources from the server with the server still being sure that the client is who they say they are.
+You create JWTs using the *jsonwebtoken* library. The sign() method creates the token and takes 3 arguements **payload, secret and options**
+```javascript
+import JWT from jsonwebtoken
+// Other stuff
+const token = JWT.sign(payload, secret, options);
+/* 
+payload could be an object containing data you need to send to client e.g {
+    username: SomeUsername
+}
+secret is the key you use to identify if JWT was tampered or if it was from your server
+options is a dict that contains other options for the token e.g expiresIn which sets how long the token is valid for
+*/
+```
