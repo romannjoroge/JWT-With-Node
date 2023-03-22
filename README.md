@@ -70,3 +70,29 @@ secret is the key you use to identify if JWT was tampered or if it was from your
 options is a dict that contains other options for the token e.g expiresIn which sets how long the token is valid for
 */
 ```
+
+# Log In Flow
+The log in process will take place as follows
+![Log In Flow](LogInActivityDiagram.drawio.png)
+
+## Send Details From Server
+The details from the user are extracted from the body of the request the same way we did it in the sign up workflow
+
+## Get User From Details
+We get a user from the database based on details received from client e.g we get the user with the provided email or username. **If no user exists with given details** we return an invalid credentials error. We don't create a more specific error because it might give clues to potential hackers. **If the user exists** we move to the next step.
+
+## Compare stored password to provided password
+We can use *bcrypt* to compare the passwords
+```javascript
+bcrypt.compare(plain_text_password, hashed_password).then(data => {
+    // If data is true then they are the same
+    if(data) {
+        // Send JWT Token
+    } else {
+        // Throw Error
+    }
+})
+```
+
+## Send JWT Token
+Send token in the same way done for sign up route
