@@ -151,3 +151,5 @@ router.post('/coolonly', checkIfAuthorized('cool'), (req, res) => {
     }
 })
 ```
+
+## Thanks for reading the tutorial. Consider staring the repo!
