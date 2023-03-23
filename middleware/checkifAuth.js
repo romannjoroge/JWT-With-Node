@@ -12,5 +12,14 @@ export default (req, res, next) => {
     }
 
     // Check if token is valid
-    let payload = JWT.verify(token, 'thisismysecretdonttellanyone');
+    try {
+        let payload = JWT.verify(token, 'thisismysecretdonttellanyone');
+        console.log(typeof payload);
+        req.username = payload.username;
+        req.authenticated = true;
+        next();
+    } catch(e) {
+        // Return error if token is not valid
+        return res.status(404).json({message: "Invalid Token"})
+    }
 }

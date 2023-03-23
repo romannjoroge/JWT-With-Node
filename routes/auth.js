@@ -69,7 +69,8 @@ router.post('/signup',
         users.push({
             username,
             email,
-            password: data
+            password: data,
+            role: "cool"
         });
     }).catch(err => {
         console.log(err);
@@ -79,7 +80,7 @@ router.post('/signup',
     })
 
     // Create and send JWT
-    let token = JWT.sign({email}, 'thisismysecretdonttellanyone', {expiresIn:3600});
+    let token = JWT.sign({username}, 'thisismysecretdonttellanyone', {expiresIn:3600});
 
     return res.status(200).json({token});
 });

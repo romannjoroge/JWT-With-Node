@@ -69,6 +69,9 @@ payload could be an object containing data you need to send to client e.g {
 secret is the key you use to identify if JWT was tampered or if it was from your server
 options is a dict that contains other options for the token e.g expiresIn which sets how long the token is valid for
 */
+
+// Sending the token
+return res.status(200).json({token});
 ```
 
 # Log In Flow
@@ -106,7 +109,7 @@ If you want somebody to have logged in you check if they have the token in their
 ## Extract Token From Header
 When the request is received from the client you extract the cookie. The token is stored in the header in a key of the programmers choosing but it is often something similar to x-auth-token or bearer-token
 ```javascript
-const token = req.headers('x-auth-token');
+const token = req.header('x-auth-token');
 
 // Returns an error if token does not exist
 if(!token) {
@@ -115,4 +118,24 @@ if(!token) {
 ```
 
 ## Verify Token
-Verify if the token is valid. This can be done using the *verify* method of jsonwebtokens package.
+Verify if the token is valid. This can be done using the *verify* method of jsonwebtokens package. The method returns the payload of the token as an object
+```javascript
+const payload = JWT.verify(token, secret);
+
+// You can append data from the payload that is needed for authorization in the request
+req.authenticated = true;
+req.usefulinfo = payload.usefulinfo;
+```
+
+# Check User Permissions
+Using data from the payload of the token you can check if the user is authorized to access the resource. The function that does it can be its own custom middleware that is provided the role to check for
+```javascript
+// We wrap the middleware in another function so as to allow it to use the passed role
+function checkIfAuthorized(role) {
+    return (req, res, next) => {
+        // Use data from token to check if user is authorized
+
+        // You can add that user is authorized in request
+        req.authorized = true;
+    }
+}
