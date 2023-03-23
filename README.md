@@ -139,3 +139,15 @@ function checkIfAuthorized(role) {
         req.authorized = true;
     }
 }
+```
+
+An example of a route that needs the cool role
+```javascript
+router.post('/coolonly', checkIfAuthorized('cool'), (req, res) => {
+    if(req.authorized) {
+        // Do some stuff
+    } else {
+        // Return an error
+    }
+})
+```
